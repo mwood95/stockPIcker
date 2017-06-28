@@ -6,7 +6,9 @@ while True:
 		print symbol + " - Comany Name:	" + ystockquote.get_company_name(symbol)
 		print "Volume:			" + ystockquote.get_volume(symbol)
 		print "Daily Average Volume:	" + ystockquote.get_average_daily_volume(symbol)
+		# Checks to see if volume data is present to avoid any errors
 		if ystockquote.get_average_daily_volume(symbol) != 'N/A':
+			# Ratio of current share volume to average share volume 
 			volume_ratio = float(ystockquote.get_volume(symbol)) / float(ystockquote.get_average_daily_volume(symbol))
 		else:
 			print "Volume Ratio:		Data Unavailable"
