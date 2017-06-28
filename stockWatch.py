@@ -63,10 +63,14 @@ while True:
 		
 			# Ratio of current share volume to average share volume 
 			volume_ratio = float(ystockquote.get_volume(symbol)) / float(ystockquote.get_average_daily_volume(symbol))
+			
 			if(volume_ratio > 1):
+			
 
+				volume_ratio = format(volume_ratio, '.2f')			
 				green_text("Volume Ratio:		", volume_ratio)
 			else:
+				volume_ratio = format(volume_ratio, '.2f')				
 				red_text("Volume Ratio:		", volume_ratio)
 
 		else:
@@ -79,7 +83,7 @@ while True:
 		print "\n"	
 
 
-	time.sleep(5)
+	time.sleep(60)
 	os.system('clear') # System call to clear screen after cycling through stock data
 
 		
