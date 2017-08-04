@@ -5,15 +5,18 @@ Discription:	This program keeps track of a number of stocks in a users watch lis
 		to the user. For the sake of speed, limit the number of stocks in the watchlist to a handful of interest stocks. This 
 		program will be later extended to give the user BUY, SELL, or HOLD signals.
 		
+
+
 """
 import ystockquote
 import time
 import os
-
+from matplotlib import pyplot as plt 
 # Begin Program with a clear screen
 os.system('clear')
 
 # Text color formatting functions
+
 def green_text(string, data):
 	print "\033[32m" + string, data, "\033[0m"
 def red_text(string, data):
@@ -30,6 +33,7 @@ watchlist = ('QTNA', 'AMD', 'CYTR', '^IXIC')
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 
 # For loop to fetch and display stock information
+time_index = [1]
 while True:
 	for symbol in watchlist:
 
@@ -40,12 +44,11 @@ while True:
 		percent_change = 100 * (todays_return / previous_close)
 
 		# Formatting data to be displayed
-		percent_change = two_dec_place(percent_change) 
-		todays_return =  two_dec_place(todays_return) 
-
-
-		print symbol + " - Comany Name:	" + ystockquote.get_company_name(symbol) 
-		print "Time: " + ystockquote.get_last_trade_time(symbol)
+		percent_change = format(percent_change, '.2f')
+		todays_return = format(todays_return, '.2f')
+		time = ystockquote.get_last_trade_time(symbol)
+		print "Last Trade: " + time 
+		print symbol + " - Comany Name:	" + ystockquote.get_company_name(symbol)
 		magenta_text("Price:			", ystockquote.get_last_trade_price(symbol))
 
 
@@ -57,6 +60,9 @@ while True:
 			red_text("Todays Return:		", todays_return)
 
 
+		print "Open:			", open_price 
+		print "Volume:			" + ystockquote.get_volume(symbol)
+		print "Daily Average Volume:	" + ystockquote.get_average_daily_volume(symbol)
 		
 		# Checks to see if volume data is present to avoid any errors
 		if ystockquote.get_average_daily_volume(symbol) != 'N/A':
@@ -75,20 +81,22 @@ while True:
 				red_text("Volume Ratio:		", volume_ratio)
 
 		else:
-			print "Volume Ratio:		Data Unavailable"
-		
+			print("Volume Ratio:		Data Unavailable")
+			
 
-		print "Previous Close:		", previous_close 
-		print "Volume:			" + ystockquote.get_volume(symbol) 
-		print "Daily Average Volume:	" + ystockquote.get_average_daily_volume(symbol) 
-		print "Short Ratio:		" + ystockquote.get_short_ratio(symbol) 
-		print "52 Week High:		" + ystockquote.get_52_week_high(symbol) 
-		print "52 Week Low:		" + ystockquote.get_52_week_low(symbol)
-		print "\n"	
+		print "Short Ratio:		" + ystockquote.get_short_ratio(symbol)
+		print "52 Week High:		" + ystockquote.get_52_week_high(symbol)
+		print "52 Week Low:		" + ystockquote.get_52_week_low(symbol) 
+		
+# This will become the part of the program that is used to graph stock data. That portion is still under development
+
+#		plt.plot(time_index, price)
+#		plt.show()
+
+		print "\n"
+		
 
 
 	time.sleep(60)
 	os.system('clear') # System call to clear screen after cycling through stock data
 
-		
-		
