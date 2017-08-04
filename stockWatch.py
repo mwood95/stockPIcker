@@ -96,5 +96,3 @@ while True:
 	time.sleep(60)
 	os.system('clear') # System call to clear screen after cycling through stock data
 
-		
-		
