@@ -1,0 +1,3 @@
+[submodule "subtree_example"]
+	path = subtree_example
+	url = https://github.com/mwood95/subtree_example.git
